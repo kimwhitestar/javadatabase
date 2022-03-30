@@ -1,4 +1,4 @@
-package t2_DBTest;
+package t3_DBTestCRUD;
 
 //import com.mysql.jdbc.Connection;//이거는 가져오면 안됨!!!
 //### 어떤 jdbc든 java.sql.Connection로 연결!!!###
@@ -35,6 +35,38 @@ public class DBTest {
     }
   }
   
+  //전체조회
+  public void list() {
+    String name = null;
+    int age = 0;
+    String gender = null;
+    String genderName = null;
+    String joinday = null;
+    
+    try {
+      stmt = conn.createStatement();
+      sql = "select * from aaa order by name";
+      rs = stmt.executeQuery(sql);
+      
+      System.out.println("===============");
+      System.out.println("성명\t나이\t성별\t가입일자");
+      System.out.println("---------------");
+      while(rs.next()) {//ResultSet의 record한줄 읽어서 있으면 boolean리턴
+        name = rs.getString("name");
+        age = rs.getInt("age");
+        gender = rs.getString("gender");//char로 받아도 됨
+        joinday = rs.getString("joinday");
+        System.out.println(name +"\t"+ age +"\t"+ gender +"\t"+ joinday);
+        if (gender == null) genderName = "";
+        else if (gender.equals("m")) genderName = "남자";
+        else if (gender.equals("f")) genderName = "여자";
+      }
+      System.out.println("===============");
+    } catch (SQLException e) {
+      System.out.println("SQL오류" + e.getMessage());
+    }
+  }
+  
   public void searchTest(String pName) {
     try {
       stmt = conn.createStatement(); 
@@ -59,6 +91,17 @@ public class DBTest {
         System.out.println(pName + "은 없음");
       }
 //      stmt.close();
+    } catch (SQLException e) {
+      System.out.println("SQL오류" + e.getMessage());
+    }
+  }
+  
+  public void input(String name, int age, String gender, String joinday) {
+    try {    
+      stmt = conn.createStatement();
+      sql = "insert into aaa values ('"+name+"', "+age+", '"+gender+"', '"+joinday+"')";
+      stmt.executeUpdate(sql);//insert
+      System.out.println("자료가 등록되었습니다");
     } catch (SQLException e) {
       System.out.println("SQL오류" + e.getMessage());
     }
