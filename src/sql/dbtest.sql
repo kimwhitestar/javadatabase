@@ -9,10 +9,10 @@ create table dbtest (
 );
 
 insert into dbtest values (default, '홍길동', 25, default, default);
+--update dbtest set  age=28, joinday = date_format('2022-03-08', '%Y-%m-%d') where idx=5;
 
+select * from dbtest where date_format(joinday, '%Y-%m-%d') = '2022-03-30';
 select * from dbtest;
-
-
 
 
 
