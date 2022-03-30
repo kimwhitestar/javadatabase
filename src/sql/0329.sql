@@ -17,3 +17,5 @@ insert into aaa values
 ('홍길순',29,'f',default);
 insert into aaa values 
 ('김말숙',35,'f','2020-1-5');
+insert into aaa values 
+('테스트',18,default,default);
