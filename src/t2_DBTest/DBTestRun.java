@@ -17,7 +17,9 @@ public class DBTestRun {
     dbTest.searchTest(name);//DB검색
     
     //DB Close처리
+    dbTest.dbClose();
     System.out.println("DB 처리 작업끝입니다...");
     scanner.close();
   }
+
 }

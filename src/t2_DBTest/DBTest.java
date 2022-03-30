@@ -12,6 +12,8 @@ import java.sql.Statement;
 public class DBTest {
   public Connection conn = null;
   public String sql = "";
+  public Statement stmt = null;
+  public ResultSet rs = null;
   
   public DBTest() {
     try {
@@ -35,10 +37,10 @@ public class DBTest {
   
   public void searchTest(String pName) {
     try {
-      Statement stmt = conn.createStatement(); 
+      stmt = conn.createStatement(); 
       sql = "select * from aaa where name='" + pName + "'";
       //RecordSet이 ResultSet으로 바꼈다
-      ResultSet rs = stmt.executeQuery(sql);//R검색(###단, 여러검색결과가 있으면 1번째줄만 가져옴###)
+      rs = stmt.executeQuery(sql);//R검색(###단, 여러검색결과가 있으면 1번째줄만 가져옴###)
       /*### stmt.executeUpdate(sql);//CUD입력수정삭제 ###*/
       if (rs.next()) {
         //System.out.println("홍길동");
@@ -56,9 +58,17 @@ public class DBTest {
       } else {
         System.out.println(pName + "은 없음");
       }
-      
+//      stmt.close();
     } catch (SQLException e) {
       System.out.println("SQL오류" + e.getMessage());
+    }
+  }
+  
+  public void dbClose() {
+    try {
+      conn.close();
+    } catch (Exception e) {
+      e.printStackTrace();
     }
   }
 }
